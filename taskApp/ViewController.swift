@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     // Realmインスタンスを取得する
@@ -21,17 +21,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
     
+    var mySearchController: UISearchController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    tableView.delegate = self
-    tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        //検索に関する設定
+        let resultController = SearchResultViewController()
+        mySearchController = UISearchController(searchResultsController: resultController) //検索結果を表示するViewを設定
+        mySearchController.hidesNavigationBarDuringPresentation = false//検索バーを押したらナビゲーションバーが隠れる
+        mySearchController.dimsBackgroundDuringPresentation = true//検索中は後ろが暗くなる。
+        self.definesPresentationContext = true
+        let searchBar = mySearchController.searchBar
+        searchBar.searchBarStyle = .default //検索バーのスタイル なくてもいい
+        searchBar.barStyle = .default //バーのスタイル なくてもいい
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = mySearchController //iOS11からは、NavigationItemにSearchControllerを設定します。
+        } else {
+            self.tableView.tableHeaderView = searchBar //TableViewの一番上にsearchBarを設置
+        }
+        searchBar.sizeToFit()
+        mySearchController.searchResultsUpdater = resultController //検索されると動くViewを設定
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+  
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: UITableViewDelegateプロトコルのメソッド
     // 各セルを選択した時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-         performSegue(withIdentifier: "cellSegue",sender: nil)
+        performSegue(withIdentifier: "cellSegue",sender: nil)
     }
     
     // セルが削除が可能なことを伝えるメソッド
@@ -115,6 +134,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-
+    
 }
 

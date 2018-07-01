@@ -17,6 +17,7 @@ class InputViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var task: Task!
+    var text = "none"
     let realm = try! Realm()
     
     override func viewDidLoad() {
