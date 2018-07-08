@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		851C8E5B20E488A50038DDB2 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851C8E5A20E488A50038DDB2 /* Task.swift */; };
-		851C8E6120E88D050038DDB2 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851C8E6020E88D050038DDB2 /* SearchResultViewController.swift */; };
 		852CC21220E388F9006DC0CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852CC21120E388F9006DC0CB /* AppDelegate.swift */; };
 		852CC21420E388F9006DC0CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852CC21320E388F9006DC0CB /* ViewController.swift */; };
 		852CC21720E388F9006DC0CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 852CC21520E388F9006DC0CB /* Main.storyboard */; };
@@ -20,7 +19,6 @@
 
 /* Begin PBXFileReference section */
 		851C8E5A20E488A50038DDB2 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		851C8E6020E88D050038DDB2 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		852CC20E20E388F8006DC0CB /* taskApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = taskApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		852CC21120E388F9006DC0CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		852CC21320E388F9006DC0CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				852CC21D20E388FB006DC0CB /* Info.plist */,
 				852CC22320E3E2AD006DC0CB /* InputViewController.swift */,
 				851C8E5A20E488A50038DDB2 /* Task.swift */,
-				851C8E6020E88D050038DDB2 /* SearchResultViewController.swift */,
 			);
 			path = taskApp;
 			sourceTree = "<group>";
@@ -213,7 +210,6 @@
 			files = (
 				851C8E5B20E488A50038DDB2 /* Task.swift in Sources */,
 				852CC22420E3E2AD006DC0CB /* InputViewController.swift in Sources */,
-				851C8E6120E88D050038DDB2 /* SearchResultViewController.swift in Sources */,
 				852CC21420E388F9006DC0CB /* ViewController.swift in Sources */,
 				852CC21220E388F9006DC0CB /* AppDelegate.swift in Sources */,
 			);

@@ -11,7 +11,9 @@ import RealmSwift
 import UserNotifications
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     // Realmインスタンスを取得する
     let realm = try! Realm()  // ←追加
@@ -21,29 +23,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 以降内容をアップデートするとリスト内は自動的に更新される。
     var taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
     
-    var mySearchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
-        //検索に関する設定
-        let resultController = SearchResultViewController()
-        mySearchController = UISearchController(searchResultsController: resultController) //検索結果を表示するViewを設定
-        mySearchController.hidesNavigationBarDuringPresentation = false//検索バーを押したらナビゲーションバーが隠れる
-        mySearchController.dimsBackgroundDuringPresentation = true//検索中は後ろが暗くなる。
-        self.definesPresentationContext = true
-        let searchBar = mySearchController.searchBar
-        searchBar.searchBarStyle = .default //検索バーのスタイル なくてもいい
-        searchBar.barStyle = .default //バーのスタイル なくてもいい
-        if #available(iOS 11.0, *) {
-            self.navigationItem.searchController = mySearchController //iOS11からは、NavigationItemにSearchControllerを設定します。
-        } else {
-            self.tableView.tableHeaderView = searchBar //TableViewの一番上にsearchBarを設置
-        }
-        searchBar.sizeToFit()
-        mySearchController.searchResultsUpdater = resultController //検索されると動くViewを設定
+       
+        searchBar.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -135,5 +122,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.reloadData()
     }
     
+    //検索窓に打ち込まれた文字を定義
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange: \(searchText)")
+        // ヒットしたカテゴリを含むtaskを配列に代入
+        let category = try! Realm().objects(Task.self).filter("category == %@", searchText)
+        taskArray = category
+        tableView.reloadData()
+        
+        if searchText.isEmpty {
+            taskArray = try! Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+            tableView.reloadData()
+        }
 }
-
+}
